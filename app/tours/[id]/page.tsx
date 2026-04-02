@@ -44,7 +44,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ id:
   return (
     <main className="flex-1 bg-gray-50 flex flex-col">
       {/* Hero Image */}
-      <section className="relative w-full h-[60vh] max-h-[500px]">
+      <section className="relative w-full min-h-[550px] md:h-[60vh] md:max-h-[600px] flex flex-col justify-end">
         {primaryImage && (
           <Image
             src={primaryImage}
@@ -55,8 +55,8 @@ export default async function TourDetailPage({ params }: { params: Promise<{ id:
             priority
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full p-8 md:p-16">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+        <div className="relative z-10 w-full p-6 pt-32 pb-10 md:p-16">
           <div className="max-w-7xl mx-auto">
             <Link href="/tours" className="inline-flex items-center text-white/80 hover:text-white mb-6 transition-colors">
               <ArrowLeft className="w-5 h-5 mr-2" /> Back to Tours
@@ -114,7 +114,7 @@ export default async function TourDetailPage({ params }: { params: Promise<{ id:
           </div>
 
           <div className="space-y-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-brand-grey/20">
+            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-brand-grey/20">
               <h3 className="text-xl font-heading text-brand-dark uppercase tracking-wide mb-6">Tour Details</h3>
               <div className="space-y-6">
                 <div className="flex items-start">

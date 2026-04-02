@@ -19,7 +19,8 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-brand-grey/20">
+    <>
+      <header className="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-brand-grey/20">
       <nav
         className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
         aria-label="Global"
@@ -73,12 +74,13 @@ export default function Navbar() {
           </Link>
         </div>
       </nav>
+    </header>
 
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
+    {/* Mobile menu */}
+    {mobileMenuOpen && (
         <div className="lg:hidden" role="dialog" aria-modal="true">
-          <div className="fixed inset-0 z-50" onClick={() => setMobileMenuOpen(false)}></div>
-          <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 shadow-2xl">
+          <div className="fixed inset-0 z-50 bg-brand-dark/40 backdrop-blur-sm transition-opacity" onClick={() => setMobileMenuOpen(false)}></div>
+          <div className="fixed inset-y-0 right-0 z-50 w-5/6 overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 shadow-2xl">
             <div className="flex items-center justify-between">
               <Link href="/" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
                 <span className="sr-only">Belize Signature Experience</span>
@@ -130,6 +132,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
