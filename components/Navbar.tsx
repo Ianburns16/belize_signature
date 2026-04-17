@@ -11,30 +11,45 @@ const navigation = [
   { name: "About Us", href: "/about" },
   { name: "Tours", href: "/tours" },
   { name: "Services", href: "/services" },
+  { name: "Journal", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+
+  // Handle scroll effect
+  if (typeof window !== "undefined") {
+    window.addEventListener("scroll", () => {
+      setScrolled(window.scrollY > 20);
+    });
+  }
 
   return (
     <>
-      <header className="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-brand-grey/20">
+      <header 
+        className={`fixed w-full top-0 z-50 transition-all duration-300 border-b ${
+          scrolled 
+            ? "bg-white/95 backdrop-blur-md border-brand-grey/20 py-2 shadow-sm" 
+            : "bg-transparent border-transparent py-4"
+        }`}
+      >
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between p-4 px-6 lg:px-8"
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
+          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2 group">
             <span className="sr-only">Belize Signature Experience</span>
-            <div className="relative h-16 w-48">
+            <div className="relative h-16 w-48 transition-transform group-hover:scale-105">
               <Image
                 src="/images/LOGO.png"
                 alt="Belize Signature Experience"
                 fill
                 sizes="(max-width: 768px) 150px, 192px"
-                className="object-contain w-auto h-auto"
+                className={`object-contain w-auto h-auto transition-all ${!scrolled ? 'brightness-0 invert' : ''}`}
                 priority
               />
             </div>
@@ -43,7 +58,7 @@ export default function Navbar() {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-brand-dark"
+            className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ${!scrolled ? 'text-white' : 'text-brand-dark'}`}
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
@@ -52,12 +67,17 @@ export default function Navbar() {
         </div>
         <div className="hidden lg:flex lg:gap-x-8">
           {navigation.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = pathname === item.href || (item.href === '/blog' && pathname.startsWith('/blog'));
             return (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-sm font-semibold leading-6 transition-colors ${isActive ? "text-brand-orange" : "text-brand-dark hover:text-brand-green"
+                className={`text-sm font-semibold leading-6 transition-all ${
+                  isActive 
+                    ? "text-brand-orange border-b-2 border-brand-orange" 
+                    : !scrolled
+                      ? "text-white/90 hover:text-white"
+                      : "text-brand-dark hover:text-brand-green"
                   }`}
               >
                 {item.name}
@@ -68,7 +88,11 @@ export default function Navbar() {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
             href="/tours"
-            className="text-sm font-semibold leading-6 text-white bg-brand-green px-5 py-2 rounded-full hover:bg-brand-green/90 transition-colors shadow-sm"
+            className={`text-sm font-semibold leading-6 px-6 py-2.5 rounded-full transition-all shadow-sm ${
+              !scrolled
+                ? "bg-white text-brand-dark hover:bg-brand-orange hover:text-white"
+                : "text-white bg-brand-green hover:bg-brand-green/90"
+            }`}
           >
             Book Now <span aria-hidden="true">&rarr;</span>
           </Link>

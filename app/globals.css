@@ -63,6 +63,58 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground scroll-smooth;
   }
+  ::selection {
+    @apply bg-brand-orange text-white;
+  }
+}
+
+@layer utilities {
+  .prose-brand {
+    @apply text-base md:text-lg;
+    & a {
+      @apply text-brand-orange hover:text-brand-green underline transition-colors;
+    }
+    & strong {
+      @apply font-semibold text-brand-dark;
+    }
+    & blockquote {
+      @apply border-l-4 border-brand-orange pl-6 italic text-gray-700 bg-gray-50 py-3 pr-4 rounded-r-lg my-8;
+    }
+    & code {
+      @apply bg-gray-100 text-brand-orange px-1.5 py-0.5 rounded font-mono text-sm;
+    }
+  }
+
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20;
+  }
+  
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-md border border-white/10;
+  }
+
+  .text-shadow-sm {
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .8; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }

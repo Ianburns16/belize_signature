@@ -29,41 +29,53 @@ export default async function Home() {
   return (
     <main className="flex-1 flex flex-col">
       {/* Hero Section */}
-      <section className="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative w-full h-[100vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/pine-ridge.jpg"
             alt="Beautiful Belize Landscape"
             fill
             sizes="100vw"
-            className="object-cover"
+            className="object-cover animate-pulse-slow lg:scale-105 lg:animate-none"
             priority
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
         </div>
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center">
-          <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl text-white mb-6 uppercase tracking-wider drop-shadow-md pb-4">
-            Where Every Adventure Is
+        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center animate-float">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm mb-6">
+            <span className="w-2 h-2 rounded-full bg-brand-orange animate-ping"></span>
+            <span className="text-white text-sm font-medium tracking-wider uppercase">Authentic Belize Tours</span>
+          </div>
+          <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl text-white mb-4 uppercase tracking-wider drop-shadow-xl pb-2 leading-none">
+            Belize
           </h1>
-          <p className="font-script text-5xl md:text-7xl text-brand-orange mb-8 -mt-8 rotate-[-2deg] drop-shadow-lg">
-            Uniquely Yours
+          <p className="font-script text-5xl md:text-7xl lg:text-8xl text-brand-orange mb-10 -rotate-2 drop-shadow-2xl translate-x-4">
+            Signature Experience
           </p>
-          <p className="bg-white/20 backdrop-blur-sm border border-white/30 text-white text-lg md:text-xl py-3 px-8 rounded-full mb-10 max-w-2xl text-center">
-            Experience the magic of Belize with premium guided tours.
+          <p className="text-white/90 text-xl md:text-2xl font-light mb-12 max-w-3xl text-center text-shadow-sm">
+            Curated adventures beyond the ordinary. Discover the soul of the Caribbean with expert local guides and premium service.
           </p>
-          <div className="flex gap-4 flex-col sm:flex-row">
+          <div className="flex gap-6 flex-col sm:flex-row">
             <Link
               href="/tours"
-              className="bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-4 px-10 rounded-full text-lg transition-transform hover:scale-105 shadow-xl"
+              className="bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-4 px-12 rounded-full text-lg transition-transform hover:scale-105 shadow-[0_0_20px_rgba(242,143,35,0.4)]"
             >
-              Explore Our Tours
+              Start Exploring
             </Link>
             <Link
               href="/contact"
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-md border-2 border-white text-white font-bold py-4 px-10 rounded-full text-lg transition-all"
+              className="glass hover:bg-white/30 text-white font-bold py-4 px-12 rounded-full text-lg transition-all"
             >
               Custom Packages
             </Link>
+          </div>
+        </div>
+        
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce text-white/70">
+          <span className="text-xs uppercase tracking-widest mb-2 font-medium">Scroll</span>
+          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center p-1">
+            <div className="w-1.5 h-3 bg-brand-orange rounded-full"></div>
           </div>
         </div>
       </section>
@@ -152,6 +164,72 @@ export default async function Home() {
             >
               View All Tours
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Journal Teaser Section */}
+      <section className="py-24 bg-gray-50 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div>
+              <h2 className="font-heading text-4xl mb-4 text-brand-dark uppercase tracking-wide">From The Journal</h2>
+              <div className="h-1 w-24 bg-brand-orange rounded-full" />
+            </div>
+            <Link href="/blog" className="inline-flex items-center text-brand-green font-semibold hover:text-brand-orange transition-colors group">
+              Read all articles <ArrowRight className="ml-2 w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                id: 1,
+                title: "Top 5 Maya Ruins You Must Visit in Belize",
+                image: "/images/cahcal-pech.jpg",
+                slug: "top-5-mayan-ruins-belize",
+                category: "Guide",
+                date: "Oct 12, 2026"
+              },
+              {
+                id: 2,
+                title: "What to Pack for the ATM Cave Expedition",
+                image: "/images/after-atm.jpg",
+                slug: "what-to-pack-atm-cave",
+                category: "Tips",
+                date: "Oct 05, 2026"
+              },
+              {
+                id: 3,
+                title: "Wildlife Spotting in Mountain Pine Ridge",
+                image: "/images/pine-ridge.jpg",
+                slug: "wildlife-spotting-pine-ridge",
+                category: "Nature",
+                date: "Sep 28, 2026"
+              }
+            ].map((post) => (
+              <Link key={post.id} href={`/blog/${post.slug}`} className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 bg-white">
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+                  <div className="absolute top-4 left-4 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    {post.category}
+                  </div>
+                </div>
+                <div className="absolute bottom-0 left-0 w-full p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                  <p className="text-gray-300 text-sm mb-2">{post.date}</p>
+                  <h3 className="text-xl font-bold font-heading uppercase leading-tight drop-shadow-md">
+                    {post.title}
+                  </h3>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

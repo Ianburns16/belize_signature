@@ -29,19 +29,33 @@ export default async function ToursPage() {
   ];
 
   return (
-    <main className="flex-1 flex flex-col pt-16">
-      {/* Header */}
-      <section className="bg-brand-dark py-20 px-4 text-center">
-        <h1 className="font-heading text-5xl md:text-6xl text-white mb-4 uppercase tracking-wide">
-          Our <span className="text-brand-orange font-script capitalize">Signature</span> Tours
-        </h1>
-        <p className="text-gray-300 max-w-2xl mx-auto text-lg">
-          Browse our curated selection of Belize's finest adventures. Each tour is crafted to provide a unique and authentic experience.
-        </p>
+    <main className="flex-1 flex flex-col bg-slate-50">
+      {/* Hero Section */}
+      <section className="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/after-atm.jpg"
+            alt="Belize Adventures"
+            fill
+            sizes="100vw"
+            className="object-cover animate-pulse-slow lg:scale-105 lg:animate-none"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-slate-50" />
+        </div>
+        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto flex flex-col items-center mt-16 animate-float">
+          <h1 className="font-heading text-6xl md:text-8xl text-white mb-6 uppercase tracking-wider drop-shadow-xl">
+            Our <span className="text-brand-orange font-script capitalize drop-shadow-2xl">Signature</span> Tours
+          </h1>
+          <div className="h-1 w-24 bg-brand-green rounded-full mb-8" />
+          <p className="text-white/90 text-xl md:text-2xl font-light max-w-2xl text-shadow-sm">
+            Browse our curated selection of Belize's finest adventures. Each tour is crafted to provide a unique and authentic experience.
+          </p>
+        </div>
       </section>
 
       {/* Tours Grid */}
-      <section className="py-24 bg-white">
+      <section className="py-24 -mt-16 relative z-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
             {allTours.map((tour) => {
