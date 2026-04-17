@@ -16,9 +16,12 @@ const navigation = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const pathname = usePathname();
+
+  // Don't show navbar on admin pages
+  if (pathname?.startsWith("/admin")) return null;
 
   // Handle scroll effect
   if (typeof window !== "undefined") {

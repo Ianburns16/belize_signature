@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { ContactForm } from "@/components/ContactForm";
 
 export default function ContactPage() {
   return (
@@ -79,32 +80,7 @@ export default function ContactPage() {
             {/* Right Form Panel */}
             <div className="lg:w-3/5 p-12 lg:p-16 bg-white">
               <h2 className="text-3xl font-heading uppercase mb-8 text-brand-dark">Send a Message</h2>
-              <form className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-dark uppercase tracking-wider">First Name</label>
-                    <input type="text" className="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-brand-orange focus:border-transparent outline-none transition-all" placeholder="John" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-brand-dark uppercase tracking-wider">Last Name</label>
-                    <input type="text" className="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-brand-orange focus:border-transparent outline-none transition-all" placeholder="Doe" />
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-brand-dark uppercase tracking-wider">Email Address</label>
-                  <input type="email" className="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-brand-orange focus:border-transparent outline-none transition-all" placeholder="john@example.com" />
-                </div>
-                
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-brand-dark uppercase tracking-wider">Message</label>
-                  <textarea rows={6} className="w-full p-4 border border-gray-200 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-brand-orange focus:border-transparent outline-none transition-all resize-none" placeholder="Tell us about your dream adventure..."></textarea>
-                </div>
-                
-                <button type="button" className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white py-4 rounded-xl font-bold text-lg transition-transform hover:-translate-y-1 shadow-lg shadow-brand-orange/30">
-                  Send Message
-                </button>
-              </form>
+              <ContactForm />
             </div>
 
           </div>
