@@ -81,7 +81,7 @@ export default async function Home() {
           {/* Left: Big Logo */}
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
             <h1 className="sr-only">Belize Signature Experience</h1>
-            <div className="relative w-[110%] sm:w-[80%] md:w-[90%] lg:w-[130%] aspect-[3/1] lg:-ml-10">
+            <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:w-[130%] aspect-[3/1] lg:-ml-10">
               <Image
                 src="/favicon.ico"
                 alt="Belize Signature Experience Logo"

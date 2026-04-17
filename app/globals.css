@@ -63,7 +63,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground scroll-smooth;
+    @apply bg-background text-foreground scroll-smooth overflow-x-hidden;
   }
   ::selection {
     @apply bg-brand-orange text-white;
