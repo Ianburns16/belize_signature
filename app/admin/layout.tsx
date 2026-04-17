@@ -1,11 +1,11 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { 
-  LayoutDashboard, 
-  MessageSquare, 
-  Map, 
-  FileText, 
+import {
+  LayoutDashboard,
+  MessageSquare,
+  Map,
+  FileText,
   LogOut,
   Menu
 } from "lucide-react";
@@ -20,7 +20,7 @@ export default async function AdminLayout({
   const { data, error } = await supabase.auth.getUser();
 
   if (error || !data?.user) {
-    redirect("/dashboard/login");
+    redirect("/auth/login");
   }
 
   return (
@@ -52,8 +52,8 @@ export default async function AdminLayout({
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="bg-white shadow-sm border-b p-4 flex justify-between items-center md:hidden">
-           <h2 className="text-xl font-heading text-brand-dark uppercase">Admin Panel</h2>
-           <button className="p-2"><Menu className="w-6 h-6" /></button>
+          <h2 className="text-xl font-heading text-brand-dark uppercase">Admin Panel</h2>
+          <button className="p-2"><Menu className="w-6 h-6" /></button>
         </header>
         <main className="p-6 lg:p-10 flex-1 overflow-auto">
           {children}

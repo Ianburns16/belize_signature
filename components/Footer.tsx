@@ -85,15 +85,15 @@ export default function Footer() {
               <ul role="list" className="mt-6 space-y-4">
                 <li className="flex gap-3 text-sm leading-6 text-gray-400">
                   <MapPin className="h-5 w-5 text-brand-green shrink-0" />
-                  Belize City, Belize
+                  eve Street, Santa Elena, Cayo District, Belize
                 </li>
                 <li className="flex gap-3 text-sm leading-6 text-gray-400">
                   <Phone className="h-5 w-5 text-brand-green shrink-0" />
-                  +501 123-4567
+                  +501 609-1944
                 </li>
                 <li className="flex gap-3 text-sm leading-6 text-gray-400">
                   <Mail className="h-5 w-5 text-brand-green shrink-0" />
-                  info@belizesignature.com
+                  reservations@belizesignature.com
                 </li>
               </ul>
             </div>

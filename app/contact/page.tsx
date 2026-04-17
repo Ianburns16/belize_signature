@@ -33,16 +33,16 @@ export default function ContactPage() {
       <section className="py-24 -mt-16 relative z-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-brand-grey/10 flex flex-col lg:flex-row">
-            
+
             {/* Left Info Panel */}
             <div className="lg:w-2/5 bg-brand-dark p-12 lg:p-16 text-white relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange rounded-bl-full opacity-10" />
               <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-green rounded-tr-full opacity-10" />
-              
+
               <div className="relative z-10 h-full flex flex-col">
                 <h2 className="text-3xl font-heading uppercase mb-4 text-white">Contact Information</h2>
                 <p className="text-gray-300 mb-12">Fill out the form and our team will get back to you within 24 hours.</p>
-                
+
                 <div className="space-y-8 flex-grow">
                   <div className="flex items-start gap-4">
                     <div className="bg-brand-orange/20 p-3 rounded-full shrink-0">
@@ -50,27 +50,27 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h4 className="font-bold text-lg mb-1">Phone</h4>
-                      <p className="text-gray-300">+501 123-4567</p>
+                      <p className="text-gray-300">+501 609-1944</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-4">
                     <div className="bg-brand-green/20 p-3 rounded-full shrink-0">
                       <Mail className="w-6 h-6 text-brand-green" />
                     </div>
                     <div>
                       <h4 className="font-bold text-lg mb-1">Email</h4>
-                      <p className="text-gray-300">info@belizesignature.com</p>
+                      <p className="text-gray-300">reservations@belizesignature.com</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-4">
                     <div className="bg-white/10 p-3 rounded-full shrink-0">
                       <MapPin className="w-6 h-6 text-white" />
                     </div>
                     <div>
                       <h4 className="font-bold text-lg mb-1">Location</h4>
-                      <p className="text-gray-300">Belize City, Belize<br/>Central America</p>
+                      <p className="text-gray-300">#12 Eve Street, Santa Elena<br />Cayo District, Belize</p>
                     </div>
                   </div>
                 </div>
