@@ -7,13 +7,22 @@ export const dynamic = "force-dynamic";
 
 export default async function Home() {
   let tours = null;
+  let blogs = null;
   const isEnvValid = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_URL.startsWith('http');
 
   if (isEnvValid) {
     try {
       const supabase = await createClient();
-      const { data } = await supabase.from("tours").select("*, tour_images(image_path, is_primary)").limit(3);
-      tours = data;
+      const { data: toursData } = await supabase.from("tours").select("*, tour_images(image_path, is_primary)").limit(3);
+      tours = toursData;
+
+      const { data: blogsData } = await supabase
+        .from("blogs")
+        .select("*")
+        .eq("published", true)
+        .order("published_at", { ascending: false })
+        .limit(3);
+      blogs = blogsData;
     } catch (e) {
       console.warn("Supabase placeholder: Please update .env.local to connect to your real database.");
     }
@@ -24,6 +33,33 @@ export default async function Home() {
     { id: "1", title: "ATM Cave Expedition", description: "Journey into the Maya underworld in the famous Actun Tunichil Muknal.", price: 120 },
     { id: "2", title: "Xunantunich Ruins & Cave Tubing", description: "Climb ancient temples and float through sacred limestone caves.", price: 95 },
     { id: "3", title: "Mountain Pine Ridge Safari", description: "Explore cascading waterfalls and majestic pine forests.", price: 85 },
+  ];
+
+  const featuredBlogs = blogs?.length ? blogs : [
+    {
+      id: "1",
+      title: "Top 5 Maya Ruins You Must Visit in Belize",
+      image_url: "/images/cahcal-pech.jpg",
+      slug: "top-5-mayan-ruins-belize",
+      category: "Guide",
+      published_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()
+    },
+    {
+      id: "2",
+      title: "What to Pack for the ATM Cave Expedition",
+      image_url: "/images/after-atm.jpg",
+      slug: "what-to-pack-atm-cave",
+      category: "Tips",
+      published_at: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString()
+    },
+    {
+      id: "3",
+      title: "Wildlife Spotting in Mountain Pine Ridge",
+      image_url: "/images/pine-ridge.jpg",
+      slug: "wildlife-spotting-pine-ridge",
+      category: "Nature",
+      published_at: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+    }
   ];
 
   return (
@@ -41,36 +77,49 @@ export default async function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80" />
         </div>
-        <div className="relative z-10 text-center px-4 max-w-5xl mx-auto flex flex-col items-center animate-float">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm mb-6">
-            <span className="w-2 h-2 rounded-full bg-brand-orange animate-ping"></span>
-            <span className="text-white text-sm font-medium tracking-wider uppercase">Authentic Belize Tours</span>
+        <div className="relative z-10 px-4 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-24 animate-float pt-16">
+          {/* Left: Big Logo */}
+          <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
+            <h1 className="sr-only">Belize Signature Experience</h1>
+            <div className="relative w-[110%] sm:w-[80%] md:w-[90%] lg:w-[130%] aspect-[3/1] lg:-ml-10">
+              <Image
+                src="/favicon.ico"
+                alt="Belize Signature Experience Logo"
+                fill
+                className="object-contain drop-shadow-2xl"
+                priority
+              />
+            </div>
           </div>
-          <h1 className="font-heading text-6xl md:text-8xl lg:text-9xl text-white mb-4 uppercase tracking-wider drop-shadow-xl pb-2 leading-none">
-            Belize
-          </h1>
-          <p className="font-script text-5xl md:text-7xl lg:text-8xl text-brand-orange mb-10 -rotate-2 drop-shadow-2xl translate-x-4">
-            Signature Experience
-          </p>
-          <p className="text-white/90 text-xl md:text-2xl font-light mb-12 max-w-3xl text-center text-shadow-sm">
-            Curated adventures beyond the ordinary. Discover the soul of the Caribbean with expert local guides and premium service.
-          </p>
-          <div className="flex gap-6 flex-col sm:flex-row">
-            <Link
-              href="/tours"
-              className="bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-4 px-12 rounded-full text-lg transition-transform hover:scale-105 shadow-[0_0_20px_rgba(242,143,35,0.4)]"
-            >
-              Start Exploring
-            </Link>
-            <Link
-              href="/contact"
-              className="glass hover:bg-white/30 text-white font-bold py-4 px-12 rounded-full text-lg transition-all"
-            >
-              Custom Packages
-            </Link>
+
+          {/* Right: Content */}
+          <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm mb-6">
+              <span className="w-2 h-2 rounded-full bg-brand-orange animate-ping"></span>
+              <span className="text-white text-sm font-medium tracking-wider uppercase">Authentic Belize Tours</span>
+            </div>
+
+            <p className="text-white/90 text-xl md:text-2xl lg:text-3xl font-light mb-12 max-w-xl text-shadow-sm leading-relaxed">
+              Curated adventures beyond the ordinary. Discover the soul of the Caribbean with expert local guides and premium service.
+            </p>
+
+            <div className="flex gap-4 flex-col sm:flex-row w-full sm:w-auto">
+              <Link
+                href="/tours"
+                className="bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-4 px-10 rounded-full text-lg transition-transform hover:scale-105 shadow-[0_0_20px_rgba(242,143,35,0.4)] text-center"
+              >
+                Start Exploring
+              </Link>
+              <Link
+                href="/contact"
+                className="glass hover:bg-white/30 text-white font-bold py-4 px-10 rounded-full text-lg transition-all text-center"
+              >
+                Custom Packages
+              </Link>
+            </div>
           </div>
         </div>
-        
+
         {/* Scroll Indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center animate-bounce text-white/70">
           <span className="text-xs uppercase tracking-widest mb-2 font-medium">Scroll</span>
@@ -124,37 +173,38 @@ export default async function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left">
             {featuredTours.map((tour) => {
-              const primaryImage = tour.tour_images?.find((img: any) => img.is_primary)?.image_path 
-                || tour.tour_images?.[0]?.image_path 
+              const primaryImage = tour.tour_images?.find((img: any) => img.is_primary)?.image_path
+                || tour.tour_images?.[0]?.image_path
                 || `/images/after-atm.jpg`; // Fallback image for now
 
               return (
-              <div key={tour.id} className="group rounded-2xl overflow-hidden border border-brand-grey/20 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col bg-white">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={primaryImage}
-                    alt={tour.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 right-4 bg-brand-orange text-white px-4 py-1 rounded-full font-bold shadow-md">
-                    ${tour.price}
+                <div key={tour.id} className="group rounded-2xl overflow-hidden border border-brand-grey/20 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col bg-white">
+                  <div className="relative h-64 overflow-hidden">
+                    <Image
+                      src={primaryImage}
+                      alt={tour.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      priority
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 right-4 bg-brand-orange text-white px-4 py-1 rounded-full font-bold shadow-md">
+                      ${tour.price}
+                    </div>
+                  </div>
+                  <div className="p-6 flex flex-col flex-grow">
+                    <h3 className="text-xl font-bold mb-3 font-heading uppercase text-brand-dark line-clamp-2">{tour.title}</h3>
+                    <p className="text-brand-grey mb-6 flex-grow line-clamp-3">{tour.description}</p>
+                    <Link
+                      href={`/tours/${tour.id}`}
+                      className="mt-auto inline-flex items-center text-brand-green font-semibold hover:text-brand-orange transition-colors"
+                    >
+                      View Details <ArrowRight className="ml-2 w-4 h-4" />
+                    </Link>
                   </div>
                 </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <h3 className="text-xl font-bold mb-3 font-heading uppercase text-brand-dark line-clamp-2">{tour.title}</h3>
-                  <p className="text-brand-grey mb-6 flex-grow line-clamp-3">{tour.description}</p>
-                  <Link
-                    href={`/tours/${tour.id}`}
-                    className="mt-auto inline-flex items-center text-brand-green font-semibold hover:text-brand-orange transition-colors"
-                  >
-                    View Details <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </div>
-              </div>
-            )})}
+              )
+            })}
           </div>
 
           <div className="mt-16">
@@ -182,54 +232,35 @@ export default async function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                id: 1,
-                title: "Top 5 Maya Ruins You Must Visit in Belize",
-                image: "/images/cahcal-pech.jpg",
-                slug: "top-5-mayan-ruins-belize",
-                category: "Guide",
-                date: "Oct 12, 2026"
-              },
-              {
-                id: 2,
-                title: "What to Pack for the ATM Cave Expedition",
-                image: "/images/after-atm.jpg",
-                slug: "what-to-pack-atm-cave",
-                category: "Tips",
-                date: "Oct 05, 2026"
-              },
-              {
-                id: 3,
-                title: "Wildlife Spotting in Mountain Pine Ridge",
-                image: "/images/pine-ridge.jpg",
-                slug: "wildlife-spotting-pine-ridge",
-                category: "Nature",
-                date: "Sep 28, 2026"
-              }
-            ].map((post) => (
-              <Link key={post.id} href={`/blog/${post.slug}`} className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 bg-white">
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
-                  <div className="absolute top-4 left-4 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                    {post.category}
+            {featuredBlogs.map((post) => {
+              const formattedDate = post.published_at
+                ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+                : "Recent";
+
+              return (
+                <Link key={post.id} href={`/blog/${post.slug}`} className="group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 bg-white">
+                  <div className="relative h-64 overflow-hidden">
+                    <Image
+                      src={post.image_url || '/images/pine-ridge.jpg'}
+                      alt={post.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute top-4 left-4 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                      {post.category || "Article"}
+                    </div>
                   </div>
-                </div>
-                <div className="absolute bottom-0 left-0 w-full p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
-                  <p className="text-gray-300 text-sm mb-2">{post.date}</p>
-                  <h3 className="text-xl font-bold font-heading uppercase leading-tight drop-shadow-md">
-                    {post.title}
-                  </h3>
-                </div>
-              </Link>
-            ))}
+                  <div className="absolute bottom-0 left-0 w-full p-6 text-white translate-y-2 group-hover:translate-y-0 transition-transform">
+                    <p className="text-gray-300 text-sm mb-2">{formattedDate}</p>
+                    <h3 className="text-xl font-bold font-heading uppercase leading-tight drop-shadow-md">
+                      {post.title}
+                    </h3>
+                  </div>
+                </Link>
+              )
+            })}
           </div>
         </div>
       </section>
