@@ -91,7 +91,7 @@ export default function Footer() {
                   <Phone className="h-5 w-5 text-brand-green shrink-0" />
                   +501 609-1944
                 </li>
-                <li className="flex gap-3 text-sm leading-6 text-gray-400">
+                <li className="flex gap-3 text-sm leading-6 text-gray-400 break-all">
                   <Mail className="h-5 w-5 text-brand-green shrink-0" />
                   reservations@belizesignature.com
                 </li>

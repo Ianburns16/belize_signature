@@ -34,7 +34,7 @@ export default async function AdminMessagesPage() {
                     <td className="p-4 font-medium text-brand-dark whitespace-nowrap">
                       {msg.name}
                     </td>
-                    <td className="p-4 text-sm text-gray-500 whitespace-nowrap">
+                    <td className="p-4 text-sm text-gray-500 break-all">
                       <a href={`mailto:${msg.email}`} className="text-brand-orange hover:underline">{msg.email}</a>
                     </td>
                     <td className="p-4 text-sm text-gray-600 max-w-md truncate">

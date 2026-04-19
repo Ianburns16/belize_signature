@@ -57,3 +57,5 @@ CREATE TABLE public.tours (
   CONSTRAINT tours_pkey PRIMARY KEY (id),
   CONSTRAINT tours_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.tour_categories(id)
 );
+
+bucket images;
