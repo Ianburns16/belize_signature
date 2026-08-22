@@ -1,10 +1,57 @@
 "use client";
 
-import { useActionState } from "react";
+import { useState, useTransition } from "react";
+import emailjs from "@emailjs/browser";
 import { submitContactForm } from "@/app/actions/contact";
 
+const SERVICE_ID = "service_21zi8c6";
+const TEMPLATE_ID = "template_bpxxhho";
+
 export function ContactForm() {
-  const [state, formAction, isPending] = useActionState(submitContactForm, null);
+  const [isPending, startTransition] = useTransition();
+  const [state, setState] = useState<{ success?: boolean; error?: string } | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+
+    if (!firstName || !lastName || !email || !message) {
+      setState({ error: "All fields are required" });
+      return;
+    }
+
+    startTransition(async () => {
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "VX0K0XOYZYEXQPXq_";
+      
+      // If public key is provided in browser environment, send directly via EmailJS client SDK
+      if (publicKey) {
+        try {
+          const compiledMessage = `First Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\n\nMessage:\n${message}`;
+
+          await emailjs.send(
+            SERVICE_ID,
+            TEMPLATE_ID,
+            {
+              message: compiledMessage,
+            },
+            publicKey
+          );
+        } catch (emailJsError) {
+          console.error("Client EmailJS send error:", emailJsError);
+        }
+      }
+
+      // Submit form action to store record in database and execute backend EmailJS call
+      const res = await submitContactForm(null, formData);
+      setState(res);
+    });
+  };
 
   if (state?.success) {
     return (
@@ -18,7 +65,7 @@ export function ContactForm() {
   }
 
   return (
-    <form action={formAction} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6">
       {state?.error && (
         <div className="bg-red-50 text-red-600 p-4 rounded-xl border border-red-200">
           {state.error}
@@ -51,3 +98,4 @@ export function ContactForm() {
     </form>
   );
 }
+

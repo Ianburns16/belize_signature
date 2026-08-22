@@ -25,14 +25,53 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
     if (error) {
       console.error("Supabase error:", error);
-      return { error: "Failed to send message. Please try again." };
+    }
+  } catch (err) {
+    console.error("Server error inserting contact record:", err);
+  }
+
+  // Send Email via EmailJS
+  try {
+    const serviceId = "service_21zi8c6";
+    const templateId = "template_bpxxhho";
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || process.env.EMAILJS_PUBLIC_KEY || "VX0K0XOYZYEXQPXq_";
+    const privateKey = process.env.EMAILJS_PRIVATE_KEY || "";
+
+    // Format all contact form details into the message field
+    const compiledMessage = `First Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\n\nMessage:\n${message}`;
+
+    const payload: Record<string, any> = {
+      service_id: serviceId,
+      template_id: templateId,
+      template_params: {
+        message: compiledMessage,
+      },
+    };
+
+    if (publicKey) {
+      payload.user_id = publicKey;
+    }
+    if (privateKey) {
+      payload.accessToken = privateKey;
     }
 
-    return { success: true };
-  } catch (err) {
-    console.error("Server error:", err);
-    return { error: "An unexpected error occurred." };
+    const emailRes = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!emailRes.ok) {
+      const errText = await emailRes.text();
+      console.error("EmailJS API response error:", emailRes.status, errText);
+    }
+  } catch (emailErr) {
+    console.error("Failed to send email via EmailJS:", emailErr);
   }
+
+  return { success: true };
 }
 
 export async function toggleContactStatus(id: number, currentStatus: boolean) {
