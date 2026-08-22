@@ -8,7 +8,7 @@ export default function ServicesPage() {
       <section className="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/cahcal-pech.jpg"
+            src="/images/high-quality-car-picture.jpg"
             alt="Custom Belize Packages"
             fill
             sizes="100vw"
@@ -32,7 +32,7 @@ export default function ServicesPage() {
       <section className="py-24 -mt-16 relative z-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-8">
-            
+
             {/* Service 1 */}
             <div className="glass p-10 rounded-3xl shadow-sm border border-brand-grey/10 hover:shadow-xl transition-all duration-300 group bg-white hover:-translate-y-2">
               <div className="bg-blue-50 w-16 h-16 rounded-full flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">

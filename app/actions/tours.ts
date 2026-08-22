@@ -114,15 +114,27 @@ export async function updateTour(id: string, prevState: any, formData: FormData)
 export async function deleteTour(id: string) {
   const supabase = await createClient();
 
-  // Delete related tour_images first
-  await supabase.from("tour_images").delete().eq("tour_id", id);
+  // 1. Delete tour_images for this tour first
+  const { error: imagesError } = await supabase
+    .from("tour_images")
+    .delete()
+    .eq("tour_id", id);
 
+  if (imagesError) {
+    console.error("Failed to delete tour_images:", imagesError);
+    return { error: `Failed to delete associated images: ${imagesError.message}` };
+  }
+
+  // 2. Delete the tour record from tours table
   const { error } = await supabase.from("tours").delete().eq("id", id);
 
   if (error) {
+    console.error("Error deleting tour:", error);
     return { error: error.message };
   }
 
   revalidatePath("/admin/tours");
+  revalidatePath("/tours");
+  revalidatePath("/");
   return { success: true };
 }

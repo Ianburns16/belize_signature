@@ -12,9 +12,18 @@ export function DeleteTourButton({ id }: { id: string }) {
   const handleDelete = async () => {
     if (!confirm("Are you sure you want to delete this tour? This cannot be undone.")) return;
     setIsPending(true);
-    await deleteTour(id);
-    setIsPending(false);
-    router.refresh();
+    try {
+      const result = await deleteTour(id);
+      if (result?.error) {
+        alert("Failed to delete tour: " + result.error);
+      } else {
+        router.refresh();
+      }
+    } catch (err: any) {
+      alert("Failed to delete tour: " + (err.message || err));
+    } finally {
+      setIsPending(false);
+    }
   };
 
   return (

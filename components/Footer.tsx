@@ -14,13 +14,13 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           <div className="space-y-8">
-            <div className="bg-white p-4 inline-block rounded-xl">
+            <div className="relative h-20 w-60">
               <Image
-                src="/images/LOGO.png"
+                src="/favicon.ico"
                 alt="Belize Signature Experience"
-                width={200}
-                height={60}
-                className="object-contain"
+                fill
+                sizes="240px"
+                className="object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]"
                 priority
               />
             </div>
@@ -85,7 +85,7 @@ export default function Footer() {
               <ul role="list" className="mt-6 space-y-4">
                 <li className="flex gap-3 text-sm leading-6 text-gray-400">
                   <MapPin className="h-5 w-5 text-brand-green shrink-0" />
-                  eve Street, Santa Elena, Cayo District, Belize
+                  Eve Street, Santa Elena, Cayo District, Belize
                 </li>
                 <li className="flex gap-3 text-sm leading-6 text-gray-400">
                   <Phone className="h-5 w-5 text-brand-green shrink-0" />

@@ -44,7 +44,7 @@ CREATE TABLE public.tour_images (
   is_primary boolean DEFAULT false,
   created_at timestamp with time zone DEFAULT now(),
   CONSTRAINT tour_images_pkey PRIMARY KEY (id),
-  CONSTRAINT tour_images_tour_id_fkey FOREIGN KEY (tour_id) REFERENCES public.tours(id)
+  CONSTRAINT tour_images_tour_id_fkey FOREIGN KEY (tour_id) REFERENCES public.tours(id) ON DELETE CASCADE
 );
 CREATE TABLE public.tours (
   id uuid NOT NULL DEFAULT uuid_generate_v4(),

@@ -86,6 +86,7 @@ export default async function Home() {
                 src="/favicon.ico"
                 alt="Belize Signature Experience Logo"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain drop-shadow-2xl"
                 priority
               />
@@ -268,7 +269,7 @@ export default async function Home() {
       {/* Call to Action Container */}
       <section className="relative py-24 bg-brand-dark overflow-hidden">
         <div className="absolute inset-0 opacity-20">
-          <Image src="/images/cahcal-pech.jpg" alt="Maya Ruins background" fill className="object-cover" />
+          <Image src="/images/high-quality-car-picture.jpg" alt="Maya Ruins background" fill className="object-cover" />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           <h2 className="font-script text-6xl md:text-7xl text-brand-orange mb-6">Ready to Explore?</h2>

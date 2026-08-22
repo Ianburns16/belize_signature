@@ -31,7 +31,7 @@ export default function AboutPage() {
       {/* Main Content */}
       <section className="py-24 -mt-16 relative z-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          
+
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Left Content */}
             <div className="order-2 lg:order-1 space-y-8">
@@ -44,14 +44,14 @@ export default function AboutPage() {
               <p className="text-lg text-brand-grey leading-relaxed">
                 We believe every adventure should be uniquely yours. Whether you are exploring ancient Maya ruins, tubing through sacred caves, or marveling at exotic wildlife, we tailor our experiences to match your sense of discovery.
               </p>
-              
+
               <div className="grid sm:grid-cols-2 gap-6 pt-6">
                 <div className="glass p-6 rounded-2xl shadow-sm border border-brand-grey/10 hover:-translate-y-1 transition-transform">
                   <div className="bg-brand-orange/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
                     <Award className="w-6 h-6 text-brand-orange" />
                   </div>
-                  <h3 className="font-bold text-brand-dark mb-2">Award Winning</h3>
-                  <p className="text-sm text-brand-grey">Recognized for excellence in premium tourism.</p>
+                  <h3 className="font-bold text-brand-dark mb-2">Community Involvement</h3>
+                  <p className="text-sm text-brand-grey">We are actively involved in supporting local communities and preserving the natural beauty of Belize.</p>
                 </div>
                 <div className="glass p-6 rounded-2xl shadow-sm border border-brand-grey/10 hover:-translate-y-1 transition-transform">
                   <div className="bg-brand-green/10 w-12 h-12 rounded-full flex items-center justify-center mb-4">
@@ -67,18 +67,18 @@ export default function AboutPage() {
             <div className="order-1 lg:order-2 grid grid-cols-2 gap-4">
               <div className="space-y-4 pt-12">
                 <div className="relative h-64 rounded-2xl overflow-hidden shadow-lg group">
-                  <Image src="/images/pine-ridge.jpg" alt="Scenery" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <Image src="/images/pine-ridge.jpg" alt="Scenery" fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
                 <div className="relative h-48 rounded-2xl overflow-hidden shadow-lg group">
-                  <Image src="/images/cahcal-pech.jpg" alt="Ruins" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <Image src="/images/after-atm.jpg" alt="Ruins" fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
               </div>
               <div className="space-y-4">
                 <div className="relative h-48 rounded-2xl overflow-hidden shadow-lg group">
-                  <Image src="/images/after-atm.jpg" alt="Adventure" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <Image src="/images/going-zipling.jpg" alt="Adventure" fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
                 <div className="relative h-72 rounded-2xl overflow-hidden shadow-lg group">
-                  <Image src="/images/guides.jpg" alt="Guides" fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <Image src="/images/guides.jpg" alt="Guides" fill sizes="(max-width: 768px) 50vw, 25vw" className="object-cover group-hover:scale-110 transition-transform duration-700" />
                 </div>
               </div>
             </div>
