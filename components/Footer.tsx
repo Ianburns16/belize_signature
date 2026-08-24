@@ -16,7 +16,7 @@ export default function Footer() {
           <div className="space-y-8">
             <div className="relative h-20 w-60">
               <Image
-                src="/favicon.ico"
+                src="/images/LOGO.png"
                 alt="Belize Signature Experience"
                 fill
                 sizes="240px"

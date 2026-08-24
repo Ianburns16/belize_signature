@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Users, Award, Heart } from "lucide-react";
+import { GoogleReviews } from "@/components/GoogleReviews";
 
 export default function AboutPage() {
   return (
@@ -86,6 +87,9 @@ export default function AboutPage() {
 
         </div>
       </section>
+
+      {/* Dynamic Google Reviews */}
+      <GoogleReviews />
     </main>
   );
 }

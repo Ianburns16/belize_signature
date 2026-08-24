@@ -3,13 +3,32 @@
 import { createClient } from "@/lib/supabase/server";
 
 export async function submitContactForm(prevState: any, formData: FormData) {
+  const websiteHp = formData.get("website_hp") as string;
+  const confirmEmailHp = formData.get("confirm_email_hp") as string;
   const firstName = formData.get("firstName") as string;
   const lastName = formData.get("lastName") as string;
   const email = formData.get("email") as string;
   const message = formData.get("message") as string;
+  const loadedAt = formData.get("loadedAt") as string;
 
+  // 1. Silent Anti-bot Honeypot check: If bots fill out hidden fields, pretend it succeeded
+  if ((websiteHp && websiteHp.trim().length > 0) || (confirmEmailHp && confirmEmailHp.trim().length > 0)) {
+    console.warn("Anti-bot honeypot triggered on contact form submission.");
+    return { success: true };
+  }
+
+  // 2. Validate required fields
   if (!firstName || !lastName || !email || !message) {
     return { error: "All fields are required" };
+  }
+
+  // 3. Server-side sub-second automated submission check
+  if (loadedAt) {
+    const elapsed = Date.now() - parseInt(loadedAt, 10);
+    if (elapsed < 1000) { // Submitted under 1s
+      console.warn(`Anti-bot rapid submission blocked (${elapsed}ms).`);
+      return { error: "Form submitted too fast. Please try again." };
+    }
   }
 
   const name = `${firstName} ${lastName}`;

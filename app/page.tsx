@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Map, ShieldCheck, Star } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
+import { GoogleReviews } from "@/components/GoogleReviews";
 
 export const dynamic = "force-dynamic";
 
@@ -83,7 +84,7 @@ export default async function Home() {
             <h1 className="sr-only">Belize Signature Experience</h1>
             <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:w-[130%] aspect-[3/1] lg:-ml-10">
               <Image
-                src="/favicon.ico"
+                src="/images/LOGO.png"
                 alt="Belize Signature Experience Logo"
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
@@ -218,6 +219,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Dynamic Google Reviews Section */}
+      <GoogleReviews />
 
       {/* Journal Teaser Section */}
       <section className="py-24 bg-gray-50 border-t border-gray-100">

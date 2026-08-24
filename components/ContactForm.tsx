@@ -11,26 +11,47 @@ export function ContactForm() {
   const [isPending, startTransition] = useTransition();
   const [state, setState] = useState<{ success?: boolean; error?: string } | null>(null);
 
+  // Silent anti-bot timestamp measure (sub-second script submissions get caught)
+  const [formLoadedAt] = useState(() => Date.now());
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    const websiteHp = formData.get("website_hp") as string;
+    const confirmEmailHp = formData.get("confirm_email_hp") as string;
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
     const email = formData.get("email") as string;
     const message = formData.get("message") as string;
+
+    // 1. Silent Honeypot check: If filled out by automated bots, fake success response
+    if (websiteHp || confirmEmailHp) {
+      setState({ success: true });
+      return;
+    }
 
     if (!firstName || !lastName || !email || !message) {
       setState({ error: "All fields are required" });
       return;
     }
 
+    // 2. Sub-second automated script submission check
+    if (Date.now() - formLoadedAt < 1200) {
+      setState({ error: "Submission detected too fast. Please try again." });
+      return;
+    }
+
+    formData.append("loadedAt", formLoadedAt.toString());
+
     startTransition(async () => {
       const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "VX0K0XOYZYEXQPXq_";
       
-      // If public key is provided in browser environment, send directly via EmailJS client SDK
-      if (publicKey) {
+      // Submit form action to store record in database and execute backend EmailJS call
+      const res = await submitContactForm(null, formData);
+      
+      if (res.success && publicKey) {
         try {
           const compiledMessage = `First Name: ${firstName}\nLast Name: ${lastName}\nEmail: ${email}\n\nMessage:\n${message}`;
 
@@ -47,8 +68,6 @@ export function ContactForm() {
         }
       }
 
-      // Submit form action to store record in database and execute backend EmailJS call
-      const res = await submitContactForm(null, formData);
       setState(res);
     });
   };
@@ -67,10 +86,29 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {state?.error && (
-        <div className="bg-red-50 text-red-600 p-4 rounded-xl border border-red-200">
+        <div className="bg-red-50 text-red-600 p-4 rounded-xl border border-red-200 text-sm font-medium">
           {state.error}
         </div>
       )}
+
+      {/* Invisible Honeypot fields - completely hidden from real users */}
+      <div style={{ display: "none" }} aria-hidden="true">
+        <input
+          type="text"
+          id="website_hp"
+          name="website_hp"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+        <input
+          type="text"
+          id="confirm_email_hp"
+          name="confirm_email_hp"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       <div className="grid sm:grid-cols-2 gap-6">
         <div className="space-y-2">
           <label className="text-sm font-bold text-brand-dark uppercase tracking-wider" htmlFor="firstName">First Name</label>

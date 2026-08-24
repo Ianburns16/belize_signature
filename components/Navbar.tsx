@@ -47,11 +47,11 @@ export default function Navbar() {
               <span className="sr-only">Belize Signature Experience</span>
               <div className="relative h-16 w-48 transition-transform group-hover:scale-105">
                 <Image
-                  src="/favicon.ico"
+                  src="/images/LOGO.png"
                   alt="Belize Signature Experience"
                   fill
                   sizes="(max-width: 768px) 150px, 192px"
-                  className={`object-contain transition-all ${!scrolled ? 'drop-shadow-[0_0_10px_rgba(255,255,255,0.7)]' : ''}`}
+                  className={`object-contain transition-all ${!scrolled ? 'drop-shadow-[0_0_12px_rgba(255,255,255,0.7)]' : ''}`}
                   priority
                 />
               </div>
@@ -110,7 +110,7 @@ export default function Navbar() {
                 <span className="sr-only">Belize Signature Experience</span>
                 <div className="relative h-12 w-36">
                   <Image
-                    src="/favicon.ico"
+                    src="/images/LOGO.png"
                     alt="Belize Signature Experience"
                     fill
                     sizes="150px"
