@@ -79,7 +79,7 @@ export function ImageUploader({
     e.preventDefault();
     setIsDragging(false);
     const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith("image/")) {
+    if (file) {
       const ok = processFile(file);
       if (ok && fileInputRef.current) {
         const dataTransfer = new DataTransfer();
@@ -170,7 +170,7 @@ export function ImageUploader({
         id={name}
         name={name}
         type="file"
-        accept="image/*"
+        accept="image/*,image/heic,image/heif,image/avif,image/jxl"
         onChange={handleFileChange}
         className="hidden"
       />
@@ -271,7 +271,7 @@ export function ImageUploader({
               <p className="text-xs font-medium text-gray-700">
                 Click or drag &amp; drop a new image to replace
               </p>
-              <p className="text-[10px] text-gray-400 mt-0.5">JPG, PNG, WebP up to 18MB</p>
+              <p className="text-[10px] text-gray-400 mt-0.5">JPG, PNG, WebP, HEIC and more — up to 18MB</p>
             </div>
           ) : (
             <div className="flex gap-2">
@@ -334,7 +334,7 @@ export function ImageUploader({
               <p className="text-sm font-semibold text-brand-dark mb-1">
                 Choose an image file or drag &amp; drop here
               </p>
-              <p className="text-xs text-gray-400">PNG, JPG, WebP or GIF up to 18MB</p>
+              <p className="text-xs text-gray-400">PNG, JPG, WebP, HEIC, AVIF, GIF — up to 18MB</p>
               <button
                 type="button"
                 className="mt-4 px-4 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-semibold rounded-lg transition-colors inline-block"

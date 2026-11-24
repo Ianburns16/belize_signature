@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Clock, Users, Calendar, MapPin, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Clock, Users, Calendar, MapPin, CheckCircle2, MessageCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -73,9 +73,13 @@ export default async function TourDetailPage({ params }: { params: Promise<{ id:
               <div className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-2xl md:w-72 flex-shrink-0 text-center">
                 <div className="text-white text-lg mb-2">Starting at</div>
                 <div className="text-4xl font-bold text-brand-green mb-4">${tour.price} <span className="text-sm font-normal opacity-70">per person</span></div>
-                <button className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 px-6 rounded-xl transition-transform hover:scale-105 shadow-md">
-                  Book This Tour
-                </button>
+                <Link
+                    href={`/contact?tour=${encodeURIComponent(tour.title)}`}
+                    className="w-full bg-brand-orange hover:bg-brand-orange/90 text-white font-bold py-3 px-6 rounded-xl transition-transform hover:scale-105 shadow-md flex items-center justify-center gap-2"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    Book This Tour
+                  </Link>
               </div>
             </div>
           </div>
